@@ -1,19 +1,5 @@
 # Design Patterns
 
-architectural design patterns
-linked to OOP
-
-software design
-one component, other components want to know what its doing (get notified)
-- observer design pattern
-
-create software components that implement these patterns, lightweight (memory and power, C)
-
-look up design patterns, think about which of them relevant to embedded, protocol stack for wireless comms,
-- architectural MVC design pattern (UI)
-- which ones are relevant/applicable????
-- in C, not C++
-
 ## General Software Design Patterns
 
 A list of cloud design patterns is available from [Microsoft Docs](https://docs.microsoft.com/en-us/azure/architecture/patterns/), or the original book [Design Patterns: Elements of Reusable Object-Oriented Software](https://amzn.to/2l6aZfB).
@@ -22,7 +8,6 @@ A list of cloud design patterns is available from [Microsoft Docs](https://docs.
 | -------------------- | ----------- | ------------ |
 | Abstract Factory     | Creates base *classes* for families of related objects without specifying their concrete behaviour/attributes. The client commits to this abstract classes, and adds details to it. This enforces dependencies in the abstract class and keeps its implementation hidden from the client. | When the system is independent of how its products are created; or with multiple families of products; or reinforcing constraints for a family of related product objects are designed to be used together. |
 | Observer/Notifier/Pub-Sub | A *subject/publisher* will notify a list of *observers/subscribers* about any change in its state. The observers get the updated state, without having to actively query the subject. Creates a loosely coupled network where state changes are propagated to the relevant objects, maintaining consistency. | When a change in one object requires changing others, but the number of objects that need to be changed vary; or for loosely coupled networks; or to separate dependent parts of an object, allowing code reuse and modification. |
-| 
 
 ## Embedded Design Patterns
 
@@ -50,3 +35,4 @@ In general, these architectural patterns are used to respond to incoming data/re
 | [Microservices](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch04.html) | Each component (that processes the business logic) is deployed separately. A user interface layer (usually an API) receives client requests and distributes them to each component, effectively handling all direct transactions with the user. | Suitable for systems with decoupled services, but may have too much overhead for embedded systems. Difficult to plan the appropriate level of granulairty for each service to allow decoupling, while reducing dependencies between each component. |
 | [Publish-Subscribe](https://ably.com/topic/pub-sub) | This is a networking framework for exchanging messages, using an intermediate broker. The publisher and the subscriber do not know each other directly, instead they pub/sub to *topics*. An alternative is *content-based* systems, where the subscriber classifies messages that are relevant to itself. The broker uses a *store and forward* function or a *queue* to prioritise messages for routing. | Publishers and subscribers are loosely coupled, making the system easily scalable. Think of it as information sharing to a forum, rather than point-to-point information exchange. |
 | [Pipes and Filters](https://docs.microsoft.com/en-us/azure/architecture/patterns/pipes-and-filters) | A system is decomposed into a series of *filters*, which apply some function to the incoming data, forming a *pipeline*. Time taken to process data/requests depends on the slowest filter in the pipeline, which may be able to run in parallel. | Breaks down code into readable, easy to refactor chunks. With active management, the pipeline can reschedule work away from broken filters (not particularly relevant to embedded). |
+| [Model View Controller](https://stackoverflow.com/questions/9355021/mvc-implemented-in-pure-c) | *Model* contains only application data (e.g. ADC readings), *View* takes said data from the Model and presents it to the User, while the User/View uses the *Controller* to manipulate the output/data of the Model. Majority of the work is in the Controller, the brains of the architecture. | Used to structure a UI for a given application, dividing up responsibilities of handling and presenting data, decoupling the two. | 

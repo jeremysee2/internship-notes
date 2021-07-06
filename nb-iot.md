@@ -5,6 +5,8 @@
 - minimise signalling overhead
 - improve battery life
 
+![](images/NB-IoT-Protocol-Stack.jpg)
+
 ## Network
 ![](images/nbiot_use_case.png)
 
@@ -27,3 +29,4 @@ and these physical signals:
 The connections are shown below:
 ![](images/channels.png)
 
+## MAC Layer
