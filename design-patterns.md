@@ -1,3 +1,5 @@
+# Design Patterns
+
 architectural design patterns
 linked to OOP
 
@@ -11,3 +13,40 @@ look up design patterns, think about which of them relevant to embedded, protoco
 - architectural MVC design pattern (UI)
 - which ones are relevant/applicable????
 - in C, not C++
+
+## General Software Design Patterns
+
+A list of cloud design patterns is available from [Microsoft Docs](https://docs.microsoft.com/en-us/azure/architecture/patterns/), or the original book [Design Patterns: Elements of Reusable Object-Oriented Software](https://amzn.to/2l6aZfB).
+
+| Name                 | Description | Applications |
+| -------------------- | ----------- | ------------ |
+| Abstract Factory     | Creates base *classes* for families of related objects without specifying their concrete behaviour/attributes. The client commits to this abstract classes, and adds details to it. This enforces dependencies in the abstract class and keeps its implementation hidden from the client. | When the system is independent of how its products are created; or with multiple families of products; or reinforcing constraints for a family of related product objects are designed to be used together. |
+| Observer/Notifier/Pub-Sub | A *subject/publisher* will notify a list of *observers/subscribers* about any change in its state. The observers get the updated state, without having to actively query the subject. Creates a loosely coupled network where state changes are propagated to the relevant objects, maintaining consistency. | When a change in one object requires changing others, but the number of objects that need to be changed vary; or for loosely coupled networks; or to separate dependent parts of an object, allowing code reuse and modification. |
+| 
+
+## Embedded Design Patterns
+
+Taken from [here](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/), an embedded blog. A catalog of basic design patterns in C is available [here](http://adampetersen.se/Patterns%20in%20C%201.pdf).
+
+| Name                 | Description | Applications | Example |
+| -------------------- | ----------- | ------------ | ------- |
+| [First-Class Abstract Data Type](http://adampetersen.se/Patterns%20in%20C%201.pdf) | A way to statically/dynamically allocate memory to create *classes* in C, which does not have native OOP support. This allows for encapsulation, inheritance, loose coupling between the data structure (attributes) and operations, as well as controlled construction and destruction. For virtual methods/overloading, need to include function pointer in structures. Adds dynamic memory and performance overhaed, as compared to procedural programming. | Basis of OOP-style code in C, using *structs*. | [C](design-patterns-C/first-class) |
+| [State](http://adampetersen.se/Patterns%20in%20C%202,%20STATE.pdf) | An OOP implementation of the state machine, using function pointers to dynamically change behaviour at runtime. Reduces code duplication, encapsulates behaviour of each state, but increases the number of compilation targets (.c and .h files). | Useful to replace traditional state machines (switch/if-else), in a more readable, modifiable format. | [C](design-patterns-C/state) |
+| [Strategy](http://www.adampetersen.se/Patterns%20in%20C%203,%20STRATEGY.pdf) | Define a family of algorithms, each encapsulated, that can be used interchangeably from the client/context. |
+| [Observer](http://www.adampetersen.se/Patterns%20in%20C%204,%20OBSERVER.pdf) |
+| [Reactor](http://www.adampetersen.se/Patterns%20in%20C%205,%20REACTOR.pdf) |
+| [Monitor Actuator Pair](https://betterembsw.blogspot.com/2014/04/monitor-actuator-pair-design-pattern.html) | A *monitor* checks that the *actuator* performing the safety-critical task, is working safely. If either detects a problem, the system shuts down. | Used for safety-critical systems that require a component to shutdown when malfunctioning. |
+| [Watchdog Timers](https://betterembsw.blogspot.com/2014/05/proper-watchdog-timer-use.html) | A counter that counts down to zero. If it gets to zero, it resets to main CPU. To avoid this, the CPU has to *kick* the watchdog periodically in software, to indicate that its program is working normally. This *kick* has to be triggered when all tasks are running properly. | Used to ensure system reliability, or shut down safety critical systems when they malfunction. |
+
+## Architectural Patterns
+
+In general, these architectural patterns are used to respond to incoming data/requests, and describe how the system is structured as a whole. This influences the testability and reusability of the code.
+
+| Name                 | Description | Applications |
+| -------------------- | ----------- | ------------ |
+| [Layered Architecture](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch01.html) | Subsystems are abstracted as 'layers' that interact with each other. Several layers of abstraction make up a system, with the level of abstraction increasing upwards. Each layer doesn't have to know the entire process, only their own role, as well as how to interact with layers above or below them. Each layer is independent of one another, such that refactoring code in one layer doesn't break the others, as long as they interact with other layers in the same way. | General purpose pattern, well suited to abstraction. Not suitable for simple systems as it creates unnecessary overhead. Easy to test each module independently |
+| [Event-Driven](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch02.html) | Asynchronous architecture for scalable applications, with highly decoupled event processing components. Two main topologies: **mediator** and **broker**. **Mediator** topology: event gets sent to an *Event Queue*, which is processed by the *Event Mediator*, which assigns them to *Event Channels*, which get processed by *Event Processors*. This allows for multiple steps to be carried out by one event, in a specific order. **Broker** topology: no central mediator, instead event flows along all event processors in a chain. | Suitable for asynchronous operation with decoupled event processors. However, it is hard to test due to its asynchronous nature and can be complicated to plan out (common messaging/data format, determining which tasks can be conducted independently). |
+| [Microkernel / Hexagonal](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch03.html) | This consists of a *core system* and *plug-in modules*. The core contains minimal functionality to keep the system operational, the general business logic. The plug-ins are standalone, independent components that extend the core system. The core system needs to know what modules are available, with a standardised interface. This architecture can be embedded as part of another architecture, to provide extensibility for more features. The **Hexagonal** term is broadly similar, indicating that there may be more than one *port* interfacing the core to modules, with *adapters* to create a common interface. | Able to abstract features from the core functionality of the product, and easy to test modules independently. However, advanced planning is required to implement this. |
+| [Microservices](https://www.oreilly.com/library/view/software-architecture-patterns/9781491971437/ch04.html) | Each component (that processes the business logic) is deployed separately. A user interface layer (usually an API) receives client requests and distributes them to each component, effectively handling all direct transactions with the user. | Suitable for systems with decoupled services, but may have too much overhead for embedded systems. Difficult to plan the appropriate level of granulairty for each service to allow decoupling, while reducing dependencies between each component. |
+| [Publish-Subscribe](https://ably.com/topic/pub-sub) | This is a networking framework for exchanging messages, using an intermediate broker. The publisher and the subscriber do not know each other directly, instead they pub/sub to *topics*. An alternative is *content-based* systems, where the subscriber classifies messages that are relevant to itself. The broker uses a *store and forward* function or a *queue* to prioritise messages for routing. | Publishers and subscribers are loosely coupled, making the system easily scalable. Think of it as information sharing to a forum, rather than point-to-point information exchange. |
+| [Pipes and Filters](https://docs.microsoft.com/en-us/azure/architecture/patterns/pipes-and-filters) | A system is decomposed into a series of *filters*, which apply some function to the incoming data, forming a *pipeline*. Time taken to process data/requests depends on the slowest filter in the pipeline, which may be able to run in parallel. | Breaks down code into readable, easy to refactor chunks. With active management, the pipeline can reschedule work away from broken filters (not particularly relevant to embedded). |

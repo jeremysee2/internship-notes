@@ -43,7 +43,7 @@
 - Parallel messages
   - Combine two diagrams, the difference in messages/sequences are boxed in `Par`
 
-![UML Messages](messages_UML.png)
+![UML Messages](images/messages_UML.png)
 
 ## Class diagram
 - depicts a set of classes, interfaces, and collaborations and their relationships
@@ -67,7 +67,7 @@
 - compound states, where a state machine diagram includes sub-machine diagrams (within the a state)
 
 ## Composite structure diagrams
-![](UML-composite-structure-diagram@2x.png)
+![](images/UML-composite-structure-diagram.png)
 
 - overview of entire system, broken down into parts
 - components:
