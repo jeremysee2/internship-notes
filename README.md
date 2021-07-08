@@ -18,6 +18,13 @@ look up design patterns, think about which of them relevant to embedded, protoco
 - which ones are relevant/applicable????
 - in C, not C++
 
+Asynchronous and synchronous components.
+Communicate by sending messages, not be direct function calls. For suitability in RTOS environments, to prevent concurrency issues.
+Look for patterns, as they relate to C, and embedded systems with constrained memory, in an RTOS environment
+List all design patterns with brief description
+Pick a few
+Dig deeper (synchronous, asynchronous multi-threaded, dynamic registration, more lightweight, differences in code sizes etc.)
+
 [Good book on Object Oriented C](https://planetpdf.com/codecuts/pdfs/ooc.pdf)
 
 
