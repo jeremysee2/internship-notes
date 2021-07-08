@@ -4,14 +4,26 @@
 
 A list of cloud design patterns is available from [Microsoft Docs](https://docs.microsoft.com/en-us/azure/architecture/patterns/), or the original book [Design Patterns: Elements of Reusable Object-Oriented Software](https://amzn.to/2l6aZfB).
 
+Creational patterns abstract the instantiation process. They make a system independent of how its objects are created, composed and represented. This is most useful for applications with large, dynamic sets of objects that need to be created/destroyed at runtime. Unfortunately, it isn't relevant for embedded systems which usually have fixed objects (hardware-related) and memory limitations (thus disallowing dynamic memory allocation at runtime). However, they can be adapted sparingly, to make embedded C code more testable and readable if memory constraints allows. Key patterns are `Factory` and `Singleton`.
+
+Structural patterns are concerned with how classes and objects are composed to form larger structures, with heavy use of inheritance. They describe ways to compose objects to realise new functionality, especially at runtime. However, this isn't possible for embedded systems that do not allow dynamic memory allocation at runtime. Despite this, principles from these patterns can be used to make static objects more modular and readable. Key patterns are `Adapter` and `Composite`.
+
+Behavioural patterns describe algorithms and the assignment of responsibilities between objects. They also describe the patterns of communication between objects, with focus on the way objects are interconnected. They use inheritance to distribute behaviours between classes. Key patterns are `Template` and `Observer`.
+
 | Name                 | Description | Applications |
 | -------------------- | ----------- | ------------ |
 | Abstract Factory     | Creates base *classes* for families of related objects without specifying their concrete behaviour/attributes. The client commits to this abstract classes, and adds details to it. This enforces dependencies in the abstract class and keeps its implementation hidden from the client. | When the system is independent of how its products are created; or with multiple families of products; or reinforcing constraints for a family of related product objects are designed to be used together. |
+| Factory | Define an interface for creating an object, but let subclasses decide which class to instantiate. Effectively a virtual constructor. | Used to define a family of classes that share some, but not all, common operations/attributes. |
+| Singleton | Ensures a class has only one instance, and provide a global point of access to it. Defines an Instance operation that allows clients access. Clients can only access that instance through the Singleton. | Used to control access to a unique instance, and is an alternative to placing the object in the global scope. | 
+| Adapter | Convert the interface of a class into another interface clients expect. | Used to interface two objects that would otherwise not be able to interact. Useful when reusing modules that were originally designed with a different interface. |
+| Composite | Compose objects into tree strcutures to represent hierarchies (heavy use of inheritance). | Used to combine independent objects into a larger structure, while maintaining modularity for easy modification. |
+| Template | Abstract definition of an algorithm, defining it step by step. A subclass inherits this and defines concrete operations. | Used to set the interface of a family of objects, which are then defined in the concrete object. |
 | Observer/Notifier/Pub-Sub | A *subject/publisher* will notify a list of *observers/subscribers* about any change in its state. The observers get the updated state, without having to actively query the subject. Creates a loosely coupled network where state changes are propagated to the relevant objects, maintaining consistency. | When a change in one object requires changing others, but the number of objects that need to be changed vary; or for loosely coupled networks; or to separate dependent parts of an object, allowing code reuse and modification. |
+
 
 ## Embedded Design Patterns
 
-Taken from [here](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/), an embedded blog. A catalog of basic design patterns in C is available [here](http://adampetersen.se/Patterns%20in%20C%201.pdf).
+This is a subset of the above section, picking out specific design patterns with some applicability in an embedded environment. However, modifications have to be made for them to run asynchronously in a RTOS environment. Taken from [here](https://embeddedartistry.com/fieldatlas/design-pattern-catalogue/), an embedded blog. A catalog of basic design patterns in C is available [here](http://adampetersen.se/Patterns%20in%20C%201.pdf).
 
 | Name                 | Description | Applications | Example | Embedded? |
 | -------------------- | ----------- | ------------ | ------- | --------- |
