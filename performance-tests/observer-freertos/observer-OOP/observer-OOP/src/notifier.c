@@ -1,21 +1,11 @@
 #include "notifier.h"
-#include "stdio.h"
-
-// Linked-list containing the objects to be called; and call their functions to notify them directly (synchronous)
-struct ListNode
-{
-    Observer item;
-    struct ListNode* next;
-};
+#include <stdio.h>
 
 // Notification flag
 static int isNotifying = 0;
-
-static struct ListNode observers;
 static uint32_t currentData;
 
-// Local helper functions for managing the linked-list (implementation omitted)
-
+// Local helper functions for managing the linked-list
 static void appendToList(const Observer* observer)
 {
     // Append a copy of the observer to the linked-list

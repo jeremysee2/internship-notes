@@ -6,6 +6,9 @@
 #include "esp_system.h"
 #include "esp_spi_flash.h"
 
+#include "observer.h"
+#include "notifier.h"
+
 /**
  * This is a procedural implementation of an "Observer" style design pattern
  * Meant to compare its performance with an OOP-equivalent implementation,
@@ -23,6 +26,7 @@
 
 // Settings
 static const int queue_len = 5;
+#define NOTIFIER_TYPE_ASYNC
 
 // Globals
 static QueueHandle_t observer1_queue;
@@ -30,6 +34,10 @@ static QueueHandle_t observer2_queue;
 void notifier_task(void *pvParameter);
 void observer1_task(void *pvParameter);
 void observer2_task(void *pvParameter);
+
+// External variables
+extern struct ListNode;
+extern struct ListNode observers;
 
 void app_main(void)
 {
@@ -59,7 +67,6 @@ void app_main(void)
 				NULL,
 				1,
 				NULL);
-    
 }
 
 void notifier_task(void *pvParameter)
@@ -70,13 +77,20 @@ void notifier_task(void *pvParameter)
 		// Get data (e.g. from a sensor)
 		data = esp_random();
 
-		// Send data to observers
-		xQueueSend(observer1_queue,(void*)&data,0);
-		xQueueSend(observer2_queue,(void*)&data,0);
-		vTaskDelay(100/portTICK_PERIOD_MS); // in ms
+		// Send data to observers, traverse linked-list
+		// Get first node
+		ListNode* node = &observers;
+		while (node != NULL)
+		{
+			// Send data to observer
+			xQueueSend(node->queue, &data, 0);
+			// Get next node
+			node = node->next;
+		}
+		vTaskDelay(1000 / portTICK_PERIOD_MS);
 	}
-	
 }
+
 
 void observer1_task(void *pvParameter)
 {
