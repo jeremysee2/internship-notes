@@ -1,20 +1,20 @@
+#include <stdio.h>
 #include "observer.h"
 
 // Constructor for Observer class
-Observer *observer_new(void (*callback)(void *), void *data, void *observerID)
+Observer *observer_new(int data, int observerID)
 {
 	Observer *self = (Observer *) malloc(sizeof(Observer));
-	self->callback = callback;
 	self->data = data;
 	self->observerID = observerID;
 	return self;
 }
 
-// Default callback for an observer to receive data.
-void default_callback(Observer *self, void *data)
+// Call to observer class, to notify the observer of a change
+void observer_notify(Observer *self, int data)
 {
 	self->data = data;
-	printf("Observer data: %d",*(int *) self->data);
+	printf("Observer %d: %d\n", self->observerID, data);
 }
 
 // Destructor for observer class

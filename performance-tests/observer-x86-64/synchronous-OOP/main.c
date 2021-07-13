@@ -17,12 +17,12 @@ void delay(int ms) {
 }
 
 void notifier() {
-    int data = rand() % RAND_MAX;
+    int data = rand();
     delay(100);
     // Notify observers
     for (int i = 0; i < NUM_OBSERVERS; i++) {
-        // Call the callback of each observer
-        observerList[i]->callback(observerList[i],data);
+        // Notify each observer through its operation
+        observer_notify(observerList[i], data);
     }
 }
 
@@ -32,7 +32,7 @@ void setup() {
     // Create observers
     for (int i = 0; i < NUM_OBSERVERS; i++) {
         // Create observer objects using observer_new function, with default_callback
-        Observer *observer = observer_new(default_callback, default_data, i);
+        Observer *observer = observer_new(DEFAULT_DATA, i);
         // Add observer to the list
         observerList[i] = observer;
     }
