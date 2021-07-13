@@ -1,9 +1,10 @@
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
 #include "queue.h"
 #include "observer.h"
 
-#define	RAND_MAX 255
 #define NUM_OBSERVERS 3
 #define QUEUE_SIZE 32
 
@@ -41,6 +42,14 @@ void setup() {
 void loop() {
     // Emulated notifier, generate a random number and notify observers.
     notifier();
+
+    // Emulated observer, for each observer in observerList, read from queue and print.
+    for (int i = 0; i < NUM_OBSERVERS; i++) {
+        // Read from queue of each observer
+        int data = queue_read(&(observerList[i]->queue));
+        // Print data
+        printf("Observer %d: %d\n", observerList[i]->observerId, data);
+    }
 }
 
 // Superloop architecture, common in embedded systems.

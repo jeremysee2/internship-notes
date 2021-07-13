@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include "observer.h"
 #include "queue.h"
 
