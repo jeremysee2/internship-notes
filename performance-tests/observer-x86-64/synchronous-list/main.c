@@ -1,7 +1,7 @@
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
-#define	RAND_MAX 255
 #define NUM_OBSERVERS 3
 
 // Function prototypes
