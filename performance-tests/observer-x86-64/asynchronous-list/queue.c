@@ -1,5 +1,6 @@
 #include "queue.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 void* queue_read(queue_t *queue) {
     if (queue->tail == queue->head) {

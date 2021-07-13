@@ -1,8 +1,9 @@
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
+#include <assert.h>
 #include "queue.h"
 
-#define	RAND_MAX 255
 #define NUM_OBSERVERS 3
 #define QUEUE_SIZE 32
 
