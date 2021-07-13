@@ -2,15 +2,17 @@
 
 ## Overview
 
-| Type | Code Size | Added code size| CPU Cycles | 
-| ---- | --------- | -------------- | ---------- |
-| Async List | 17,256 B  | +248 B | |
-| Async OOP  | 17,408 B  | +400 B | |
-| Sync List  | 17,136 B  | +128 B | |
-| Sync OOP   | 17,344 B  | +336 B | |
-| Sync Simple | 17,008 B | 0 B    | |
+| Type        | Code Size | Added code size | CPU Cycles (10k iterations) |
+| ----------- | --------- | --------------- | --------------------------- |
+| Async List  | 17,256 B  | +248 B          | 88,860                      |
+| Async OOP   | 17,408 B  | +400 B          | 97,174                      |
+| Sync List   | 17,136 B  | +128 B          | 81,105                      |
+| Sync OOP    | 17,344 B  | +336 B          | 83,582                      |
+| Sync Simple | 17,008 B  | 0 B             | 82,103                      |
 
-The large executable sizes are due to the usage of standard C libraries such as `stdlib` and `stdio`. For embedded environments, pruning can be done to reduce code size. OOP implementations add about `300` bytes to the code size. List implementation vs hardcoding adds about `140` bytes.
+The CPU cycle counts were measured with the `clock()` function in the `time.h` module. It isn't accurate as there are large variations between runs on my laptop.
+
+The large executable sizes are due to the usage of standard C libraries such as `stdlib` and `stdio`. For embedded environments, pruning can be done to reduce code size. OOP implementations add about `300` bytes to the code size. List implementation vs hardcoding adds about `130` bytes. Asynchronous implementations add about `100` bytes.
 
 ## Asynchronous implementations
 

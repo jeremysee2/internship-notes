@@ -8,13 +8,12 @@ void delay(int ms) {
 }
 
 void observer(int observerId, int value) {
-    delay(100);
     printf("Observer %d: %d\n", observerId, value);
 }
 
 void notifier() {
     int data = rand() % RAND_MAX;
-    delay(100);
+    // delay(100);
     // Observers hardcoded for now
     observer(0, data);
     observer(1, data);
@@ -34,7 +33,13 @@ void loop() {
 // Superloop architecture, common in embedded systems.
 int main() {
     setup();
-    for (;;) {
+    // Test total number of cycles used in 1000 runs
+    double avgCpuCycles = 0;
+    for (int i = 0; i < 10000; i++) {
+        clock_t start = clock();
         loop();
+        clock_t end   = clock();
+        avgCpuCycles += ((double) end - start);
     }
+    printf("CPU Cycles for 10000 iterations: %lf\n", avgCpuCycles);
 }
