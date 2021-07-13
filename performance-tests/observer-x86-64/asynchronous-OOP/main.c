@@ -32,8 +32,8 @@ void setup() {
     srand(time(NULL));
 
     for (int i = 0; i < NUM_OBSERVERS; i++) {
-        // Create observer objects using observer_new function, with default_callback
-        Observer *observer = observer_new(default_callback, DEFAULT_DATA, i, QUEUE_SIZE);
+        // Create observer objects using observer_new function
+        Observer *observer = observer_new(DEFAULT_DATA, i, QUEUE_SIZE);
         // Add observer to the list
         observerList[i] = observer;
     }

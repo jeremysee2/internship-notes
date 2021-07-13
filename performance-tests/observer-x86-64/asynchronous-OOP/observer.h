@@ -8,14 +8,12 @@
 
 typedef struct
 {
-	void (*callback)(void *);
 	queue_t queue;
 	int observerId;
 	void *data;
 } Observer;
 
-Observer *observer_new(void (*callback)(void *), void *data, int observerId, int queue_size);
+Observer *observer_new(void *data, int observerId, int queue_size);
 void observer_free(Observer *self);
-void default_callback(Observer *self, void *data);
 
 #endif
