@@ -1,7 +1,6 @@
 #include <time.h>
 #include <stdlib.h>
-
-#define	RAND_MAX 255
+#include <stdio.h>
 
 void delay(int ms) {
     clock_t expire = clock() + (ms * CLOCKS_PER_SEC / 1000);
