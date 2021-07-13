@@ -12,7 +12,9 @@
 
 The CPU cycle counts were measured with the `clock()` function in the `time.h` module. It isn't accurate as there are large variations between runs on my laptop.
 
-The large executable sizes are due to the usage of standard C libraries such as `stdlib` and `stdio`. For embedded environments, pruning can be done to reduce code size. OOP implementations add about `300` bytes to the code size. List implementation vs hardcoding adds about `130` bytes. Asynchronous implementations add about `100` bytes.
+The executables are compiled with `gcc` on `x86-64`, for my laptop running Ubuntu 20.04.
+
+The large executable sizes are due to the usage of standard C libraries (`libc`) such as `stdlib` and `stdio`. For embedded environments, pruning can be done to reduce code size. OOP implementations add about `300` bytes to the code size. List implementation vs hardcoding adds about `130` bytes. Asynchronous implementations add about `100` bytes.
 
 ## Asynchronous implementations
 
