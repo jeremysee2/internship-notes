@@ -2,13 +2,14 @@
 
 ## Overview
 
-| Type        | Code Size | Added code size | CPU Cycles (10k iterations) |
-| ----------- | --------- | --------------- | --------------------------- |
-| Async List  | 17,256 B  | +248 B          | 88,860                      |
-| Async OOP   | 17,408 B  | +400 B          | 97,174                      |
-| Sync List   | 17,136 B  | +128 B          | 81,105                      |
-| Sync OOP    | 17,344 B  | +336 B          | 83,582                      |
-| Sync Simple | 17,008 B  | 0 B             | 82,103                      |
+| Type          | Code Size | Added code size | CPU Cycles (10k iterations) |
+| ------------- | --------- | --------------- | --------------------------- |
+| Async Dynamic | 17,608 B  | + 600 B         | 86,478                      |
+| Async List    | 17,256 B  | +248 B          | 88,860                      |
+| Async OOP     | 17,408 B  | +400 B          | 97,174                      |
+| Sync List     | 17,136 B  | +128 B          | 81,105                      |
+| Sync OOP      | 17,344 B  | +336 B          | 83,582                      |
+| Sync Simple   | 17,008 B  | 0 B             | 82,103                      |
 
 The CPU cycle counts were measured with the `clock()` function in the `time.h` module. It isn't accurate as there are large variations between runs on my laptop.
 
@@ -27,6 +28,10 @@ List implementations use a list of direct function pointers/queues to send data.
 ## OOP implemetation
 
 This uses OOP concepts of encapsulation to move the `observer` object into its separate file. Attributes are implemented in `struct` while operations are separate functions, in the same source file.
+
+## Dynamic implementation
+
+This uses OOP + a linked list to implement a dynamic list of Observers for the Notifier to inform of any updated data.
 
 ## Simple implementation
 
