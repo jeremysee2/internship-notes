@@ -8,7 +8,7 @@ Creational patterns abstract the instantiation process. They make a system indep
 
 Structural patterns are concerned with how classes and objects are composed to form larger structures, with heavy use of inheritance. They describe ways to compose objects to realise new functionality, especially at runtime. However, this isn't possible for embedded systems that do not allow dynamic memory allocation at runtime. Despite this, principles from these patterns can be used to make static objects more modular and readable. Key patterns are `Adapter` and `Composite`.
 
-Behavioural patterns describe algorithms and the assignment of responsibilities between objects. They also describe the patterns of communication between objects, with focus on the way objects are interconnected. They use inheritance to distribute behaviours between classes. Key patterns are `Template` and `Observer`.
+Behavioural patterns describe algorithms and the assignment of responsibilities between objects. They also describe the patterns of communication between objects, with focus on the way objects are interconnected. They use inheritance to distribute behaviours between classes. This class of design patterns are most relevant to embedded systems. Key patterns are `Template` and `Observer`.
 
 | Name                 | Description | Applications |
 | -------------------- | ----------- | ------------ |
