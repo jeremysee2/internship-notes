@@ -17,7 +17,7 @@ void delay(int ms) {
 }
 
 void notifier() {
-    int data = rand() % RAND_MAX;
+    int data = rand();
     // delay(100);
     // Notify observers
     for (int i = 0; i < NUM_OBSERVERS; i++) {
